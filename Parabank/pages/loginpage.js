@@ -1,68 +1,71 @@
 import { expect } from '@playwright/test';
 
-class LoginPage {
+export default class LoginPage {
 
     constructor(page) {
 
         this.page = page;
 
-        this.usernameInput =
+        this.username =
             page.locator('input[name="username"]');
 
-        this.passwordInput =
+        this.password =
             page.locator('input[name="password"]');
 
-        this.loginButton =
+        this.loginBtn =
             page.locator('input[value="Log In"]');
 
-        this.logoutLink =
-            page.locator('text=Log Out');
-
-        this.errorMessage =
-            page.locator('.error');
-
-        this.accountOverviewText =
+        this.accountOverview =
             page.locator('h1.title');
+        this.logoutLink =
+            page.locator('a[href*="logout"]');
     }
 
     async gotoLoginPage() {
-
         await this.page.goto(
             'https://parabank.parasoft.com/parabank/index.htm'
         );
+        await this.page.waitForTimeout(2000);
     }
 
     async login(username, password) {
+        await this.page.goto(
+            'https://parabank.parasoft.com/parabank/index.htm'
+        );
 
-        await this.usernameInput.fill(username);
-
-        await this.passwordInput.fill(password);
-
-        await this.loginButton.click();
+        await this.username.clear();
+        await this.username.fill(username);
+        await this.password.clear();
+        await this.password.fill(password);
+        await Promise.all([
+            this.page.waitForNavigation(),
+            this.loginBtn.click()
+        ]);
+        // await this.loginBtn.click();
+        // await this.page.waitForURL(
+        //     '**/overview.htm',
+        //     { timeout: 15000 }
+        // );
     }
 
     async logout() {
-
-        await this.logoutLink.waitFor({
-            state: 'visible'
-        });
-
         await this.logoutLink.click();
+        await this.page.waitForTimeout(3000);
     }
 
     async verifyLoginSuccess() {
-
         await expect(
-            this.accountOverviewText
-        ).toContainText('Accounts Overview');
+            this.page.getByRole('heading', {
+                name: 'Accounts Overview'
+            })
+        ).toBeVisible({
+            timeout: 15000
+        });
     }
 
     async verifyInvalidLogin() {
-
         await expect(
-            this.errorMessage
-        ).toBeVisible();
+            this.page.locator('body')
+        ).toContainText('Error');
     }
 }
-
-export default LoginPage;

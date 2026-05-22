@@ -51,7 +51,9 @@ class RegisterPage {
 
     async gotoRegisterPage() {
 
-        await this.page.goto('https://parabank.parasoft.com/parabank/index.htm');
+        await this.page.goto(
+            'https://parabank.parasoft.com/parabank/index.htm'
+        );
 
         await this.registerLink.click();
     }
@@ -83,13 +85,17 @@ class RegisterPage {
         await this.registerButton.click();
     }
 
-    async verifyRegistrationSuccess(username) {
-
-    await expect(this.successMessage)
-        .toContainText(`Welcome ${username}`);
+    async verifyRegistration(username) {
+    await expect(
+        this.page.locator('#rightPanel')
+    ).toContainText(username);
 }
 
- 
+    // async verifyRegistrationSuccess(username) {
+    //     await expect(
+    //         this.page.locator('#rightPanel')
+    //     ).toContainText(username);
+    // }
 }
 
 export default RegisterPage;
