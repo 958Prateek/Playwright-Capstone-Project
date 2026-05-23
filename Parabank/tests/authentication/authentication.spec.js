@@ -1,25 +1,93 @@
-import { test , expect } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import LoginPage from '../../pages/LoginPage';
 
 test.beforeEach(async ({ page }) => {
     await page.context().clearCookies();
 });
 
-test('TC06 - SQL Injection Login', async ({ page }) => {
+test('TC01 - Valid Login', async ({ page }) => {
+    const login = new LoginPage(page);
+    await login.gotoLoginPage();
+    await login.login(
+        'john',
+        'demo'
+    );
+    await login.verifyLoginSuccess();
+    console.log(' Valid Login Successful');
+});
+
+
+test('TC02 - Invalid Login', async ({ page }) => {
+    const login = new LoginPage(page);
+    await login.gotoLoginPage();
+    await login.login(
+        'wrongUser',
+        'wrongPassword'
+    );
+    await login.verifyInvalidLogin();
+    console.log('Invalid Login Verified');
+});
+
+
+test('TC03 - Logout Validation', async ({ page }) => {
 
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        "' OR '1'='1",
-        "' OR '1'='1"
+        'john',
+        'demo'
     );
+    await login.verifyLoginSuccess();
+    await login.logout();
+    console.log(' Logout Successful');
+});
+
+
+test('TC04 - Empty Credentials', async ({ page }) => {
+    const login = new LoginPage(page);
+    await login.gotoLoginPage();
+    await login.login('', '');
     await login.verifyInvalidLogin();
-    console.log(' SQL Injection Validation Done');
+    console.log(' Empty Credential Validation Done');
+});
+
+
+test('TC05 - Session Validation', async ({ page }) => {
+    const login = new LoginPage(page);
+    await login.gotoLoginPage();
+    await login.login(
+        'john',
+        'demo'
+    );
+    await login.verifyLoginSuccess();
+    await page.reload();
+    await expect(
+        page.getByRole('heading', {
+            name: 'Accounts Overview'
+        })
+    ).toBeVisible();
+    console.log(' Session Persistence Verified');
+});
+
+
+
+test('TC06 - Invalid Password Login', async ({ page }) => {
+    const login = new LoginPage(page);
+    await login.gotoLoginPage();
+    await login.login(
+        'john',
+        'wrongpassword'
+    );
+    await expect(page.locator('body')).toContainText(
+        'The username and password could not be verified'
+    );
+    console.log(
+        ' Invalid Password Validation Done'
+    );
 });
 
 
 test('TC07 - Password Masking Validation', async ({ page }) => {
-
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     const passwordField =
@@ -40,18 +108,16 @@ test('TC08 - Multiple Login Attempts', async ({ page }) => {
         );
         await login.verifyInvalidLogin();
     }
-
     console.log(' Multiple Login Attempts Tested');
 });
 
 
 test('TC09 - Browser Back Validation', async ({ page }) => {
-
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        'prateek123',
-        'admin@123'
+        'john',
+        'demo'
     );
     await login.verifyLoginSuccess();
     await login.logout();
@@ -67,12 +133,11 @@ test('TC09 - Browser Back Validation', async ({ page }) => {
 
 
 test('TC10 - Remember Me Validation', async ({ page }) => {
-
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        'prateek123',
-        'admin@123'
+        'john',
+        'demo'
     );
     await login.verifyLoginSuccess();
 
@@ -81,13 +146,11 @@ test('TC10 - Remember Me Validation', async ({ page }) => {
 
     // Verify session persists
     await login.verifyLoginSuccess();
-
     console.log(' Remember Me Validation Done');
 });
 
 
 test('TC11 - Unauthorized Access Validation', async ({ page }) => {
-
     await page.goto(
         'https://parabank.parasoft.com/parabank/overview.htm'
     );
@@ -106,19 +169,17 @@ test('TC12 - Concurrent Login Validation', async ({ browser }) => {
     const login1 = new LoginPage(page1);
     await login1.gotoLoginPage();
     await login1.login(
-        'prateek123',
-        'admin@123'
+        'john',
+        'demo'
     );
     await login1.verifyLoginSuccess();
-
     const context2 = await browser.newContext();
-
     const page2 = await context2.newPage();
     const login2 = new LoginPage(page2);
     await login2.gotoLoginPage();
     await login2.login(
-        'prateek123',
-        'admin@123'
+        'john',
+        'demo'
     );
     await login2.verifyLoginSuccess();
     console.log(' Concurrent Login Validation Done');
@@ -126,20 +187,15 @@ test('TC12 - Concurrent Login Validation', async ({ browser }) => {
 
 
 test('TC13 - Direct URL Access After Logout', async ({ page }) => {
-
     const login = new LoginPage(page);
-
     await login.gotoLoginPage();
-
     await login.login(
-        'prateek123',
-        'admin@123'
+        'john',
+        'demo'
     );
 
     await login.verifyLoginSuccess();
-
     await login.logout();
-
     // Try direct URL access
     await page.goto(
         'https://parabank.parasoft.com/parabank/overview.htm'

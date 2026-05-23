@@ -1,11 +1,8 @@
 import { expect } from '@playwright/test';
 
 class RegisterPage {
-
     constructor(page) {
-
         this.page = page;
-
         this.registerLink =
             page.locator('text=Register');
 
@@ -86,10 +83,20 @@ class RegisterPage {
     }
 
     async verifyRegistration(username) {
-    await expect(
-        this.page.locator('#rightPanel')
-    ).toContainText(username);
-}
+
+        await expect(
+            this.page.locator('#rightPanel')
+        ).toContainText(
+            'Your account was created successfully'
+        );
+
+        await expect(
+            this.page.locator('#rightPanel')
+        ).toContainText(
+            username
+        );
+    }
+
 
     // async verifyRegistrationSuccess(username) {
     //     await expect(

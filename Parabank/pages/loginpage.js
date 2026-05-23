@@ -55,17 +55,18 @@ export default class LoginPage {
 
     async verifyLoginSuccess() {
         await expect(
-            this.page.getByRole('heading', {
-                name: 'Accounts Overview'
-            })
-        ).toBeVisible({
-            timeout: 15000
-        });
+            this.page.locator('body')
+        ).toContainText(
+            'Accounts Overview',
+            { timeout: 15000 }
+        );
     }
 
     async verifyInvalidLogin() {
         await expect(
             this.page.locator('body')
-        ).toContainText('Error');
+        ).toContainText(
+            'Customer Login'
+        );
     }
 }

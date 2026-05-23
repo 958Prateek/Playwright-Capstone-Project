@@ -210,7 +210,6 @@ test.describe('Registration Module', () => {
                username: 'ssnUser' + Date.now(),
                password: 'demo'
           };
-
           await register.gotoRegisterPage();
           await register.registerUser(user);
 
@@ -235,7 +234,6 @@ test.describe('Registration Module', () => {
 
           await register.gotoRegisterPage();
           await register.registerUser(user);
-
           console.log(' Username Validation Executed');
      });
 
@@ -258,13 +256,8 @@ test.describe('Registration Module', () => {
           };
 
           await register.gotoRegisterPage();
-
           await register.registerUser(user);
-
-          await register.verifyRegistration(
-               user.username
-          );
-
+          await register.verifyRegistration(user.username);
           console.log(' Complete Registration Flow Successful');
      });
 
