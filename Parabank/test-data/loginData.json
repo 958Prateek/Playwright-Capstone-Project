@@ -1,4 +1,21 @@
 {
-  "username": "john",
-  "password": "demo"
+  "validUser": {
+    "username": "john",
+    "password": "demo"
+  },
+
+  "invalidUser": {
+    "username": "wrongUser",
+    "password": "wrongPassword"
+  },
+
+  "invalidPasswordUser": {
+    "username": "john",
+    "password": "wrongpassword"
+  },
+
+  "emptyUser": {
+    "username": "",
+    "password": ""
+  }
 }

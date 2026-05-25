@@ -116,7 +116,8 @@ export default defineConfig({
 
   reporter: [
     ['html'],
-    ['list']
+    ['list'],
+    ['allure-playwright', { resultsDir: 'allure-results' }]
   ],
 
   use: {

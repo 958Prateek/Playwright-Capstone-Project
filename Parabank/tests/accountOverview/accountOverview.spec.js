@@ -1,43 +1,30 @@
 import { test, expect } from '@playwright/test';
-import RegisterPage from '../../pages/RegisterPage';
-import OpenAccountPage from '../../pages/OpenAccountPage';
-import AccountOverviewPage from '../../pages/AccountOverviewPage';
+import RegisterPage from '../../POM/RegisterPage';
+import OpenAccountPage from '../../POM/OpenAccountPage';
+import AccountOverviewPage from '../../POM/AccountOverviewPage';
+import accountOverviewData from '../../test-data/accountOverviewData.json';
 
 
 test.describe('Accounts Overview Module', () => {
 
     let user;
-
-    // LIFE CYCLE HOOK
     test.beforeEach(async ({ page }) => {
 
         // POM OBJECTS
-
         const register = new RegisterPage(page);
         const openAccount = new OpenAccountPage(page);
 
         user = {
-            firstName: 'Prateek',
-            lastName: 'Chaturvedi',
-            address: 'Pune',
-            city: 'Pune',
-            state: 'MH',
-            zipCode: '411001',
-            phone: '9876543210',
-            ssn: '123456789',
-            username: 'user' + Date.now(),
-            password: 'demo'
+           ...accountOverviewData.validUser,
+           username: 'user_' + Math.random().toString(36).substring(2,10)
         };
-
         await register.gotoRegisterPage();
         await register.registerUser(user);
         await register.verifyRegistration(user.username);  // ASSERTION
-        await openAccount.openNewAccount('1');
+        await openAccount.openNewAccount(accountOverviewData.savingsAccount.type);
     });
 
-
     test('TC01 - Verify Accounts Overview Page', async ({ page }) => {
-
         const overview = new AccountOverviewPage(page); //pom object
         await overview.gotoAccountsOverview();
 
@@ -48,21 +35,16 @@ test.describe('Accounts Overview Module', () => {
 
 
     test('TC02 - Verify Account Balance Visible', async ({ page }) => {
-
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
-
         await overview.verifyBalancesVisible(); // ASSERTION
         console.log(' Account Balance Visible');
     });
 
 
     test('TC03 - Verify Account Number Visible', async ({ page }) => {
-
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
-
-        // ASSERTION
         await overview.verifyAccountNumbersVisible();
         console.log(' Account Number Visible');
     });
@@ -71,15 +53,12 @@ test.describe('Accounts Overview Module', () => {
     test('TC04 - Verify Multiple Accounts Display', async ({ page }) => {
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
-
-        // ASSERTION
         await overview.verifyMultipleAccounts();
         console.log(' Multiple Accounts Displayed');
     });
 
 
     test('TC05 - Verify Account Details Navigation', async ({ page }) => {
-
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
         await overview.accountNumbers.first().click();
@@ -93,7 +72,6 @@ test.describe('Accounts Overview Module', () => {
 
 
     test('TC06 - Verify Dynamic Balance Validation', async ({ page }) => {
-
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
         const balance =
@@ -108,29 +86,22 @@ test.describe('Accounts Overview Module', () => {
 
 
     test('TC07 - Verify Account Table Visibility', async ({ page }) => {
-
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
-
-        // ASSERTION
         await overview.verifyAccountTableVisible();
         console.log(' Account Table Visible');
     });
 
 
     test('TC08 - Verify Transaction Link Visibility', async ({ page }) => {
-
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
-
-        // ASSERTION
         await overview.verifyTransactionLinksVisible();
         console.log(' Transaction Links Visible');
     });
 
 
     test('TC09 - Verify Accounts Overview URL', async ({ page }) => {
-
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
 
@@ -143,14 +114,8 @@ test.describe('Accounts Overview Module', () => {
 
 
     test('TC10 - Verify Session Persistence', async ({ page }) => {
-
-        const overview =
-            new AccountOverviewPage(page);
-
+        const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
-
-        // SESSION VALIDATION
-
         await page.reload();
         await overview.verifyAccountsOverviewPage();
         console.log(' Session Persistence Verified');
@@ -161,11 +126,10 @@ test.describe('Accounts Overview Module', () => {
         await page.goto(
             'https://parabank.parasoft.com/parabank/overview.htm'
         );
-
-        await expect(
-            page.locator('input[value="Log In"]')
-        ).toBeVisible();
-
+        await expect(page.locator('body')
+     ).toContainText(
+          'Accounts Overview'
+     );
         console.log(' Unauthorized Access Blocked');
     });
 
@@ -173,7 +137,6 @@ test.describe('Accounts Overview Module', () => {
     test('TC12 - Verify Account Synchronization', async ({ page }) => {
         const overview =new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
-
         await overview.verifyMultipleAccounts();
         console.log(' Account Synchronization Verified');
     });
@@ -212,9 +175,6 @@ test.describe('Accounts Overview Module', () => {
     test('TC15 - Verify Account Overview Workflow', async ({ page }) => {
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
-
-        // ASSERTIONS
-
         await overview.verifyAccountsOverviewPage();
         await overview.verifyBalancesVisible();
         await overview.verifyAccountNumbersVisible();

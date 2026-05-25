@@ -1,27 +1,17 @@
 import { test, expect } from '@playwright/test';
-import RegisterPage from '../../pages/RegisterPage';
-import OpenAccountPage from '../../pages/OpenAccountPage';
+import RegisterPage from '../../POM/RegisterPage';
+import OpenAccountPage from '../../POM/OpenAccountPage';
+import openAccountData from '../../test-data/openAccountData.json';
 
 test.describe('Open Account Module', () => {
 
     let user;
-
     test.beforeEach(async ({ page }) => {
         const register = new RegisterPage(page);
         user = {
-            firstName: 'Prateek',
-            lastName: 'Chaturvedi',
-            address: 'Pune',
-            city: 'Pune',
-            state: 'MH',
-            zipCode: '411001',
-            phone: '912534995',
-            ssn: '123456789',
-            username: 'user' + Date.now(),
-            password: 'admin'
+            ...openAccountData.validUser,
+            username:   'user' + Date.now()
         };
-
-
         await register.gotoRegisterPage();
         await register.registerUser(user);
         await register.verifyRegistration(
@@ -31,7 +21,6 @@ test.describe('Open Account Module', () => {
 
 
     test('TC01 - Open Savings Account', async ({ page }) => {
-
         const account = new OpenAccountPage(page);
         await account.openNewAccount('1');
         await account.verifyAccountOpened();
@@ -40,32 +29,15 @@ test.describe('Open Account Module', () => {
 
 
     test('TC02 - Open Current Account', async ({ page }) => {
-
-        const account =
-            new OpenAccountPage(page);
-        // await account.gotoOpenAccountPage();
+        const account = new OpenAccountPage(page);
         await account.openNewAccount('0');
         await account.verifyAccountOpened();
         console.log(' Current Account Opened');
     });
 
 
-    // test('TC03 - Account Type Dropdown Validation', async ({ page }) => {
-
-    //     const account =
-    //         new OpenAccountPage(page);
-    //     // await account.gotoOpenAccountPage();
-    //     await expect(
-    //         account.accountTypeDropdown
-    //     ).toBeVisible();
-    //     console.log(' Dropdown Validation Done');
-    // });
-
     test('TC03 - Account Type Dropdown Validation', async ({ page }) => {
-
-        const account =
-            new OpenAccountPage(page);
-
+        const account = new OpenAccountPage(page);
         await page.goto(
             'https://parabank.parasoft.com/parabank/openaccount.htm'
         );
@@ -77,10 +49,7 @@ test.describe('Open Account Module', () => {
 
 
     test('TC04 - Multiple Accounts Creation', async ({ page }) => {
-
-        const account =
-            new OpenAccountPage(page);
-        // await account.gotoOpenAccountPage();
+        const account = new OpenAccountPage(page);
         await account.openNewAccount('1');
         await account.verifyAccountOpened();
         await account.openNewAccount('0');
@@ -90,9 +59,7 @@ test.describe('Open Account Module', () => {
 
 
     test('TC05 - Account Number Visibility', async ({ page }) => {
-
-        const account =
-            new OpenAccountPage(page);
+        const account = new OpenAccountPage(page);
         await account.openNewAccount('1');
         await account.verifyNewAccountNumberVisible();
         console.log(' Account Number Visible');
@@ -100,10 +67,7 @@ test.describe('Open Account Module', () => {
 
 
     test('TC06 - Open Account Workflow', async ({ page }) => {
-
-        const account =
-            new OpenAccountPage(page);
-
+        const account = new OpenAccountPage(page);
         await account.gotoOpenAccountPage();
         await account.selectAccountType('1');
         await account.clickOpenAccountButton();
@@ -113,7 +77,6 @@ test.describe('Open Account Module', () => {
 
 
     test('TC07 - Unauthorized Access Validation', async ({ page }) => {
-
         await page.goto(
             'https://parabank.parasoft.com/parabank/openaccount.htm'
         );
@@ -127,10 +90,7 @@ test.describe('Open Account Module', () => {
 
 
     test('TC08 - Session Persistence Validation', async ({ page }) => {
-
-        const account =
-            new OpenAccountPage(page);
-
+        const account =  new OpenAccountPage(page);
         await account.gotoOpenAccountPage();
         await account.openNewAccount('1');
         await page.reload();
@@ -139,15 +99,12 @@ test.describe('Open Account Module', () => {
                 name: 'Open New Account'
             })
         ).toBeVisible();
-
         console.log(' Session Persistence Verified');
     });
 
 
     test('TC09 - Open Account Button Visibility', async ({ page }) => {
-
-        const account =
-            new OpenAccountPage(page);
+        const account =   new OpenAccountPage(page);
         await account.gotoOpenAccountPage();
         await expect(
             account.openAccountButton
@@ -159,8 +116,7 @@ test.describe('Open Account Module', () => {
 
     test('TC10 - From Account Dropdown Validation', async ({ page }) => {
 
-        const account =
-            new OpenAccountPage(page);
+        const account =  new OpenAccountPage(page);
         await account.gotoOpenAccountPage();
         await expect(
             account.fromAccountDropdown
@@ -172,8 +128,7 @@ test.describe('Open Account Module', () => {
 
     test('TC11 - Savings Account Synchronization', async ({ page }) => {
 
-        const account =
-            new OpenAccountPage(page);
+        const account =  new OpenAccountPage(page);
         await account.gotoOpenAccountPage();
         await account.openNewAccount('1');
         await account.verifyAccountOpened();
@@ -183,8 +138,7 @@ test.describe('Open Account Module', () => {
 
     test('TC12 - Current Account Synchronization', async ({ page }) => {
 
-        const account =
-            new OpenAccountPage(page);
+        const account =  new OpenAccountPage(page);
         await account.openNewAccount('0');
         await account.verifyAccountOpened();
         console.log(' Current Account Synced');
@@ -193,8 +147,7 @@ test.describe('Open Account Module', () => {
 
     test('TC13 - UI Validation', async ({ page }) => {
 
-        const account =
-            new OpenAccountPage(page);
+        const account = new OpenAccountPage(page);
         await account.gotoOpenAccountPage();
         await expect(
             page.getByRole('heading', {
@@ -219,8 +172,7 @@ test.describe('Open Account Module', () => {
 
     test('TC15 - Open Account Navigation Validation', async ({ page }) => {
 
-        const account =
-            new OpenAccountPage(page);
+        const account =  new OpenAccountPage(page);
         await account.gotoOpenAccountPage();
         await expect(page)
             .toHaveURL(/openaccount.htm/);

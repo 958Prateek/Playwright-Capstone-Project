@@ -1,0 +1,14 @@
+{
+  "validUser": {
+    "firstName": "Prateek",
+    "lastName": "Chaturvedi",
+    "address": "Pune",
+    "city": "Pune",
+    "state": "MH",
+    "zipCode": "411001",
+    "phone": "912534995",
+    "ssn": "123456789",
+    "password": "demo"
+  }
+}  
+

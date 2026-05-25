@@ -1,12 +1,37 @@
 {
-  "firstName": "Prateek",
-  "lastName": "Chaturvedi",
-  "address": "Pune",
-  "city": "Pune",
-  "state": "Maharashtra",
-  "zipCode": "411001",
-  "phone": "9125349995",
-  "ssn": "123456789",
-  "username": "john",
-  "password": "demo"
+  "validUser": {
+    "firstName": "Prateek",
+    "lastName": "Chaturvedi",
+    "address": "Pune",
+    "city": "Pune",
+    "state": "MH",
+    "zipCode": "411001",
+    "phone": "9125349995",
+    "ssn": "123456789",
+    "password": "demo"
+  },
+
+  "invalidPhoneUser": {
+    "firstName": "Prateek",
+    "lastName": "Chaturvedi",
+    "address": "Pune",
+    "city": "Pune",
+    "state": "MH",
+    "zipCode": "411001",
+    "phone": "abcd123",
+    "ssn": "123456789",
+    "password": "demo"
+  },
+
+  "invalidZipUser": {
+    "firstName": "Prateek",
+    "lastName": "Chaturvedi",
+    "address": "Pune",
+    "city": "Pune",
+    "state": "MH",
+    "zipCode": "abc123",
+    "phone": "9125349995",
+    "ssn": "123456789",
+    "password": "demo"
+  }
 }

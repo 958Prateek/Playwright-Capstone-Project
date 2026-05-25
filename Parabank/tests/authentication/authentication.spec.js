@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-import LoginPage from '../../pages/LoginPage';
+import LoginPage from '../../POM/LoginPage';
+import loginData from '../../test-data/loginData.json';
 
 test.beforeEach(async ({ page }) => {
     await page.context().clearCookies();
@@ -9,8 +10,8 @@ test('TC01 - Valid Login', async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        'john',
-        'demo'
+         loginData.validUser.username,
+         loginData.validUser.password
     );
     await login.verifyLoginSuccess();
     console.log(' Valid Login Successful');
@@ -21,8 +22,8 @@ test('TC02 - Invalid Login', async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        'wrongUser',
-        'wrongPassword'
+        loginData.invalidUser.username,
+        loginData.invalidUser.password
     );
     await login.verifyInvalidLogin();
     console.log('Invalid Login Verified');
@@ -34,8 +35,8 @@ test('TC03 - Logout Validation', async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        'john',
-        'demo'
+        loginData.validUser.username,
+        loginData.validUser.password
     );
     await login.verifyLoginSuccess();
     await login.logout();
@@ -46,7 +47,7 @@ test('TC03 - Logout Validation', async ({ page }) => {
 test('TC04 - Empty Credentials', async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoLoginPage();
-    await login.login('', '');
+    await login.login(loginData.emptyUser.username,loginData.emptyUser.password);
     await login.verifyInvalidLogin();
     console.log(' Empty Credential Validation Done');
 });
@@ -56,8 +57,8 @@ test('TC05 - Session Validation', async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        'john',
-        'demo'
+        loginData.validUser.username,
+        loginData.validUser.password
     );
     await login.verifyLoginSuccess();
     await page.reload();
@@ -75,8 +76,8 @@ test('TC06 - Invalid Password Login', async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        'john',
-        'wrongpassword'
+        loginData.invalidPasswordUser.username,
+        loginData.invalidPasswordUser.password
     );
     await expect(page.locator('body')).toContainText(
         'The username and password could not be verified'
@@ -103,8 +104,8 @@ test('TC08 - Multiple Login Attempts', async ({ page }) => {
     await login.gotoLoginPage();
     for (let i = 0; i < 3; i++) {
         await login.login(
-            'wrongUser',
-            'wrongPassword'
+             loginData.invalidUser.username,
+             loginData.invalidUser.password
         );
         await login.verifyInvalidLogin();
     }
@@ -116,14 +117,12 @@ test('TC09 - Browser Back Validation', async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        'john',
-        'demo'
+        loginData.validUser.username,
+        loginData.validUser.password
     );
     await login.verifyLoginSuccess();
     await login.logout();
     await page.goBack();
-
-    // Verify login page visible
     await expect(
         page.locator('body')
     ).toContainText('Accounts Overview');
@@ -136,15 +135,11 @@ test('TC10 - Remember Me Validation', async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        'john',
-        'demo'
+        loginData.validUser.username,
+        loginData.validUser.password
     );
     await login.verifyLoginSuccess();
-
-    // Refresh page
     await page.reload();
-
-    // Verify session persists
     await login.verifyLoginSuccess();
     console.log(' Remember Me Validation Done');
 });
@@ -162,15 +157,13 @@ test('TC11 - Unauthorized Access Validation', async ({ page }) => {
 
 
 test('TC12 - Concurrent Login Validation', async ({ browser }) => {
-
-    // Browser 1
     const context1 = await browser.newContext();
     const page1 = await context1.newPage();
     const login1 = new LoginPage(page1);
     await login1.gotoLoginPage();
     await login1.login(
-        'john',
-        'demo'
+        loginData.validUser.username,
+        loginData.validUser.password
     );
     await login1.verifyLoginSuccess();
     const context2 = await browser.newContext();
@@ -178,8 +171,8 @@ test('TC12 - Concurrent Login Validation', async ({ browser }) => {
     const login2 = new LoginPage(page2);
     await login2.gotoLoginPage();
     await login2.login(
-        'john',
-        'demo'
+        loginData.validUser.username,
+        loginData.validUser.password
     );
     await login2.verifyLoginSuccess();
     console.log(' Concurrent Login Validation Done');
@@ -190,18 +183,15 @@ test('TC13 - Direct URL Access After Logout', async ({ page }) => {
     const login = new LoginPage(page);
     await login.gotoLoginPage();
     await login.login(
-        'john',
-        'demo'
+        loginData.validUser.username,
+        loginData.validUser.password
     );
 
     await login.verifyLoginSuccess();
     await login.logout();
-    // Try direct URL access
     await page.goto(
         'https://parabank.parasoft.com/parabank/overview.htm'
     );
-
-    // Verify login page shown
     await expect(
         page.locator('input[value="Log In"]')
     ).toBeVisible();
@@ -215,7 +205,6 @@ test('TC13 - Direct URL Access After Logout', async ({ page }) => {
 test('TC14 - Login Page Refresh Validation', async ({ page }) => {
 
     const login = new LoginPage(page);
-
     await login.gotoLoginPage();
     await page.reload();
 

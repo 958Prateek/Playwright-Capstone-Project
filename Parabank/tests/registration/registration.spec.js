@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
-import RegisterPage from '../../pages/RegisterPage';
+import RegisterPage from '../../POM/RegisterPage';
+import registerData from '../../test-data/registerData.json';
 
 test.beforeEach(async ({ page }) => {
     await page.context().clearCookies();
@@ -9,16 +10,9 @@ test.describe('Registration Module', () => {
      test('TC01 - Valid Registration', async ({ page }) => {
           const register = new RegisterPage(page);
           const user = {
-               firstName: 'Prateek',
-               lastName: 'Chaturvedi',
-               address: 'Pune',
-               city: 'Pune',
-               state: 'Maharashtra',
-               zipCode: '411001',
-               phone: '9125349995',
-               ssn: '123456789',
-               username: 'prateek' + Date.now() ,
-               password: 'demo'
+               ...registerData.validUser,
+
+               username:  'prateek' + Date.now()
           };
           await register.gotoRegisterPage();
           await register.registerUser(user);
@@ -32,22 +26,18 @@ test.describe('Registration Module', () => {
 
           const register = new RegisterPage(page);
           const user = {
-               firstName: 'Prateek',
-               lastName: 'Chaturvedi',
-               address: 'Pune',
-               city: 'Pune',
-               state: 'Maharashtra',
-               zipCode: '411001',
-               phone: '9125349995',
-               ssn: '123456789',
-               username:
-               'duplicateUser' +
-               Math.floor(Math.random()*1000),
-               password: 'demo'
+                ...registerData.validUser,
+
+                username:'duplicateUser' + Math.floor(Math.random()*1000)
           };
           await register.gotoRegisterPage();
           await register.registerUser(user);
-          await register.gotoRegisterPage();
+          await page.goto(
+               'https://parabank.parasoft.com/parabank/logout.htm'
+          );
+          await page.goto(
+               'https://parabank.parasoft.com/parabank/register.htm'
+          );
           await register.registerUser(user);
           await expect(
                page.locator(
@@ -96,17 +86,11 @@ test.describe('Registration Module', () => {
 
           const register = new RegisterPage(page);
           const user = {
-               firstName: 'Prateek',
-               lastName: 'Chaturvedi',
-               address: 'Pune',
-               city: 'Pune',
-               state: 'MH',
-               zipCode: '411001',
+               ...registerData.validUser,
+
                phone: 'abcd123',
-               ssn: '123456789',
-               // username: 'john' + Date.now() + Math.floor(Math.random() * 10000),
-               username: 'john' + Date.now() ,
-               password: 'demo'
+               username:
+                    'john' + Date.now()
           };
           await register.gotoRegisterPage();
           await register.registerUser(user);
@@ -118,17 +102,10 @@ test.describe('Registration Module', () => {
 
           const register = new RegisterPage(page);
           const user = {
+                ...registerData.validUser,
 
-               firstName: 'Prateek',
-               lastName: 'Chaturvedi',
-               address: 'Pune',
-               city: 'Pune',
-               state: 'MH',
                zipCode: 'abc123',
-               phone: '9876543210',
-               ssn: '123456789',
-               username: 'zipUser' + Date.now(),
-               password: 'demo'
+               username: 'zipUser' + Date.now()
           };
           await register.gotoRegisterPage();
           await register.registerUser(user);
@@ -154,16 +131,11 @@ test.describe('Registration Module', () => {
 
           const register = new RegisterPage(page);
           const user = {
+               ...registerData.validUser,
+
                firstName: '@@@###',
                lastName: '$$$%%%',
-               address: '***&&&',
-               city: '!!!@@@',
-               state: 'MH',
-               zipCode: '411001',
-               phone: '9876543210',
-               ssn: '123456789',
-               username: 'special' + Date.now(),
-               password: 'demo'
+               username: 'special' + Date.now()
           };
           await register.gotoRegisterPage();
           await register.registerUser(user);
@@ -179,16 +151,12 @@ test.describe('Registration Module', () => {
                'aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
           const user = {
+                ...registerData.validUser,
+
                firstName: longText,
                lastName: longText,
-               address: longText,
-               city: longText,
-               state: 'MH',
-               zipCode: '411001',
-               phone: '9876543210',
-               ssn: '123456789',
-               username: 'longUser' + Date.now(),
-               password: 'demo'
+               username:
+                    'longUser' + Date.now()
           };
           await register.gotoRegisterPage();
           await register.registerUser(user);
@@ -199,16 +167,10 @@ test.describe('Registration Module', () => {
 
           const register = new RegisterPage(page);
           const user = {
-               firstName: 'Prateek',
-               lastName: 'Chaturvedi',
-               address: 'Pune',
-               city: 'Pune',
-               state: 'MH',
-               zipCode: '411001',
-               phone: '9125349995',
+                ...registerData.validUser,
+
                ssn: 'abcd123',
-               username: 'ssnUser' + Date.now(),
-               password: 'demo'
+               username: 'ssnUser' + Date.now()
           };
           await register.gotoRegisterPage();
           await register.registerUser(user);
@@ -220,18 +182,10 @@ test.describe('Registration Module', () => {
 
           const register = new RegisterPage(page);
           const user = {
-               firstName: 'Prateek',
-               lastName: 'Chaturvedi',
-               address: 'Pune',
-               city: 'Pune',
-               state: 'MH',
-               zipCode: '411001',
-               phone: '912534995',
-               ssn: '123456789',
-               username: 'ab',
-               password: 'demo'
-          };
+              ...registerData.validUser,
 
+              username: 'ab'
+          };
           await register.gotoRegisterPage();
           await register.registerUser(user);
           console.log(' Username Validation Executed');
@@ -241,24 +195,51 @@ test.describe('Registration Module', () => {
      test('TC12 - Complete Registration Flow', async ({ page }) => {
           const register = new RegisterPage(page);
           const user = {
+               ...registerData.validUser,
 
-               firstName: 'Prateek',
-               lastName: 'Chaturvedi',
-               address: 'Pune',
-               city: 'Pune',
-               state: 'MH',
-               zipCode: '411001',
-               phone: '9125349995',
-               ssn: '123456789',
-               // username: 'flowUser' + Date.now() + Math.floor(Math.random() * 10000),
-               username:`user_${Math.random().toString(36).substring(2, 12)}`,
-               password: 'demo'
+               username: `user_${Math.random().toString(36).substring(2,12)}`
           };
 
           await register.gotoRegisterPage();
           await register.registerUser(user);
           await register.verifyRegistration(user.username);
           console.log(' Complete Registration Flow Successful');
+     });
+
+     test('TC13 - Duplicate Phone Number Validation', async ({ page }) => {
+          const register = new RegisterPage(page);
+          const user = {
+               ...registerData.validUser,
+               username: 'phoneUser' + Date.now()
+          };
+          await register.gotoRegisterPage();
+          await register.registerUser(user);
+          await page.goto(
+               'https://parabank.parasoft.com/parabank/logout.htm'
+          );
+          await page.goto(
+               'https://parabank.parasoft.com/parabank/register.htm'
+          );
+          const secondUser = {
+               ...registerData.validUser,
+               phone: user.phone,
+               username:'secondPhoneUser'+ Date.now()
+          };
+          await register.registerUser(secondUser);
+          console.log(
+               ' Duplicate Phone Validation Executed'
+          );
+     });
+
+     test('TC14 - Registration Form Reset Validation', async ({ page }) => {
+          const register = new RegisterPage(page);
+          await register.gotoRegisterPage();
+          await register.firstName.fill('Prateek');
+          await register.lastName.fill( 'Chaturvedi');
+          await page.reload();
+          await expect(register.firstName).toHaveValue('');
+          await expect(register.lastName ).toHaveValue('');
+          console.log(' Registration Form Reset Verified');
      });
 
 })
