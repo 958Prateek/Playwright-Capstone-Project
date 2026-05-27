@@ -52,72 +52,33 @@ test.describe('Loan Request Module', () => {
      });
 
 
-     // TC05
-
      test('TC05 - Empty Down Payment', async ({ page }) => {
-
-          const loan =
-               new LoanRequestPage(page);
-
-          await loan.applyLoan(
-               loanData.emptyDownPayment
-          );
-
-          console.log(
-               ' Empty Down Payment Validation Done'
-          );
+          const loan =  new LoanRequestPage(page);
+          await loan.applyLoan( loanData.emptyDownPayment);
+          console.log('Empty Down Payment Validation Done');
      });
-
-
-     // TC06
 
      test('TC06 - Loan Request Page Visibility', async ({ page }) => {
-
-          const loan =
-               new LoanRequestPage(page);
-
+          const loan = new LoanRequestPage(page);
           await loan.gotoLoanRequestPage();
-
           await loan.verifyLoanPageVisible();
-
-          console.log(
-               ' Loan Request Page Visible'
+          console.log(' Loan Request Page Visible'
           );
      });
-
-
-     // TC07
 
      test('TC07 - Loan Amount Field Visibility', async ({ page }) => {
-
-          const loan =
-               new LoanRequestPage(page);
-
+          const loan = new LoanRequestPage(page);
           await loan.gotoLoanRequestPage();
-
-          await expect(
-               loan.loanAmountInput
-          ).toBeVisible();
-
-          console.log(
-               ' Loan Amount Field Visible'
-          );
+          await expect(loan.loanAmountInput).toBeVisible();
+          console.log(' Loan Amount Field Visible');
      });
 
-
-     // TC08
-
      test('TC08 - Down Payment Field Visibility', async ({ page }) => {
-
-          const loan =
-               new LoanRequestPage(page);
-
+          const loan = new LoanRequestPage(page);
           await loan.gotoLoanRequestPage();
-
           await expect(
                loan.downPaymentInput
           ).toBeVisible();
-
           console.log(
                ' Down Payment Field Visible'
           );
@@ -161,27 +122,15 @@ test.describe('Loan Request Module', () => {
           );
      });
 
-
-     // TC11
-
      test('TC11 - Session Persistence Validation', async ({ page }) => {
-
-          const loan =
-               new LoanRequestPage(page);
-
+          const loan = new LoanRequestPage(page);
           await loan.gotoLoanRequestPage();
-
           await loan.refreshPage();
-
           await loan.verifyLoanPageVisible();
-
           console.log(
                ' Session Persistence Verified'
           );
      });
-
-
-     // TC12
 
      test('TC12 - Unauthorized Access Validation', async ({ page }) => {
           await page.goto('https://parabank.parasoft.com/parabank/logout.htm');
@@ -209,41 +158,18 @@ test.describe('Loan Request Module', () => {
           );
      });
 
-
-     // TC14
-
      test('TC14 - Workflow Validation', async ({ page }) => {
-
-          const loan =
-               new LoanRequestPage(page);
-
-          await loan.applyLoan(
-               loanData.validLoan
-          );
-
+          const loan = new LoanRequestPage(page);
+          await loan.applyLoan(loanData.validLoan );
           await loan.verifyLoanApproved();
-
-          console.log(
-               ' Workflow Validation Done'
-          );
+          console.log(' Workflow Validation Done');
      });
 
-
-     // TC15
-
      test('TC15 - Loan Request URL Validation', async ({ page }) => {
-
-          const loan =
-               new LoanRequestPage(page);
-
+          const loan = new LoanRequestPage(page);
           await loan.gotoLoanRequestPage();
-
-          await expect(page)
-               .toHaveURL(/requestloan.htm/);
-
-          console.log(
-               ' Loan Request URL Verified'
-          );
+          await expect(page).toHaveURL(/requestloan.htm/);
+          console.log(' Loan Request URL Verified');
      });
 
 
