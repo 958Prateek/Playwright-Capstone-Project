@@ -1,0 +1,255 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: findTransaction\findTransaction.spec.js >> Find Transactions Module >> TC07 - Empty Transaction Search
+- Location: tests\findTransaction\findTransaction.spec.js:147:9
+
+# Error details
+
+```
+Test timeout of 60000ms exceeded.
+```
+
+```
+Error: locator.click: Test timeout of 60000ms exceeded.
+Call log:
+  - waiting for getByRole('heading', { name: 'Find Transactions' })
+
+```
+
+# Page snapshot
+
+```yaml
+- generic [active] [ref=e1]:
+  - generic [ref=e2]:
+    - generic [ref=e3]:
+      - link:
+        - /url: admin.htm
+        - img [ref=e4] [cursor=pointer]
+      - link "ParaBank":
+        - /url: index.htm
+        - img "ParaBank" [ref=e5] [cursor=pointer]
+      - paragraph [ref=e6]: Experience the difference
+    - generic [ref=e7]:
+      - list [ref=e8]:
+        - listitem [ref=e9]: Solutions
+        - listitem [ref=e10]:
+          - link "About Us" [ref=e11] [cursor=pointer]:
+            - /url: about.htm
+        - listitem [ref=e12]:
+          - link "Services" [ref=e13] [cursor=pointer]:
+            - /url: services.htm
+        - listitem [ref=e14]:
+          - link "Products" [ref=e15] [cursor=pointer]:
+            - /url: http://www.parasoft.com/jsp/products.jsp
+        - listitem [ref=e16]:
+          - link "Locations" [ref=e17] [cursor=pointer]:
+            - /url: http://www.parasoft.com/jsp/pr/contacts.jsp
+        - listitem [ref=e18]:
+          - link "Admin Page" [ref=e19] [cursor=pointer]:
+            - /url: admin.htm
+      - list [ref=e20]:
+        - listitem [ref=e21]:
+          - link "home" [ref=e22] [cursor=pointer]:
+            - /url: index.htm
+        - listitem [ref=e23]:
+          - link "about" [ref=e24] [cursor=pointer]:
+            - /url: about.htm
+        - listitem [ref=e25]:
+          - link "contact" [ref=e26] [cursor=pointer]:
+            - /url: contact.htm
+    - generic [ref=e27]:
+      - generic [ref=e28]:
+        - paragraph [ref=e29]: Welcome Prateek Chaturvedi
+        - heading "Account Services" [level=2] [ref=e30]
+        - list [ref=e31]:
+          - listitem [ref=e32]:
+            - link "Open New Account" [ref=e33] [cursor=pointer]:
+              - /url: openaccount.htm
+          - listitem [ref=e34]:
+            - link "Accounts Overview" [ref=e35] [cursor=pointer]:
+              - /url: overview.htm
+          - listitem [ref=e36]:
+            - link "Transfer Funds" [ref=e37] [cursor=pointer]:
+              - /url: transfer.htm
+          - listitem [ref=e38]:
+            - link "Bill Pay" [ref=e39] [cursor=pointer]:
+              - /url: billpay.htm
+          - listitem [ref=e40]:
+            - link "Find Transactions" [ref=e41] [cursor=pointer]:
+              - /url: findtrans.htm
+          - listitem [ref=e42]:
+            - link "Update Contact Info" [ref=e43] [cursor=pointer]:
+              - /url: updateprofile.htm
+          - listitem [ref=e44]:
+            - link "Request Loan" [ref=e45] [cursor=pointer]:
+              - /url: requestloan.htm
+          - listitem [ref=e46]:
+            - link "Log Out" [ref=e47] [cursor=pointer]:
+              - /url: logout.htm
+      - generic [ref=e50]:
+        - heading "Error!" [level=1] [ref=e51]
+        - paragraph [ref=e52]: An internal error has occurred and has been logged.
+  - generic [ref=e54]:
+    - list [ref=e55]:
+      - listitem [ref=e56]:
+        - link "Home" [ref=e57] [cursor=pointer]:
+          - /url: index.htm
+        - text: "|"
+      - listitem [ref=e58]:
+        - link "About Us" [ref=e59] [cursor=pointer]:
+          - /url: about.htm
+        - text: "|"
+      - listitem [ref=e60]:
+        - link "Services" [ref=e61] [cursor=pointer]:
+          - /url: services.htm
+        - text: "|"
+      - listitem [ref=e62]:
+        - link "Products" [ref=e63] [cursor=pointer]:
+          - /url: http://www.parasoft.com/jsp/products.jsp
+        - text: "|"
+      - listitem [ref=e64]:
+        - link "Locations" [ref=e65] [cursor=pointer]:
+          - /url: http://www.parasoft.com/jsp/pr/contacts.jsp
+        - text: "|"
+      - listitem [ref=e66]:
+        - link "Forum" [ref=e67] [cursor=pointer]:
+          - /url: http://forums.parasoft.com/
+        - text: "|"
+      - listitem [ref=e68]:
+        - link "Site Map" [ref=e69] [cursor=pointer]:
+          - /url: sitemap.htm
+        - text: "|"
+      - listitem [ref=e70]:
+        - link "Contact Us" [ref=e71] [cursor=pointer]:
+          - /url: contact.htm
+    - paragraph [ref=e72]: © Parasoft. All rights reserved.
+    - list [ref=e73]:
+      - listitem [ref=e74]: "Visit us at:"
+      - listitem [ref=e75]:
+        - link "www.parasoft.com" [ref=e76] [cursor=pointer]:
+          - /url: http://www.parasoft.com/
+```
+
+# Test source
+
+```ts
+  1   | import { expect } from '@playwright/test';
+  2   | 
+  3   | // POM CLASS
+  4   | // Find Transactions Module
+  5   | 
+  6   | class FindTransactionsPage {
+  7   | 
+  8   |      constructor(page) {
+  9   | 
+  10  |           this.page = page;
+  11  |           this.findTransactionsLink =
+  12  |                page.getByRole(
+  13  |                     'heading', { name: 'Find Transactions' }
+  14  |                );
+  15  |           this.amountInput =
+  16  |                page.locator('#amount');
+  17  | 
+  18  |           this.findByAmountButton =
+  19  |                page.locator(
+  20  |                     'button:has-text("Find Transactions")'
+  21  |                ).nth(2);
+  22  | 
+  23  |           this.dateInput =
+  24  |                page.locator('#transactionDate');
+  25  | 
+  26  |           this.findByDateButton =
+  27  |                page.locator(
+  28  |                     'button:has-text("Find Transactions")'
+  29  |                ).nth(0);
+  30  | 
+  31  |           this.fromDateInput =
+  32  |                page.locator('#fromDate');
+  33  | 
+  34  |           this.toDateInput =
+  35  |                page.locator('#toDate');
+  36  | 
+  37  |           this.findByDateRangeButton =
+  38  |                page.locator(
+  39  |                     'button:has-text("Find Transactions")'
+  40  |                ).nth(1);
+  41  | 
+  42  |           this.transactionIdInput =
+  43  |                page.locator('#transactionId');
+  44  | 
+  45  |           this.findByIdButton =
+  46  |                page.locator(
+  47  |                     'button:has-text("Find Transactions")'
+  48  |                ).nth(3);
+  49  | 
+  50  |           this.pageTitle =
+  51  |                page.locator('h1.title');
+  52  | 
+  53  |           this.resultTable =
+  54  |                page.locator('#transactionTable');
+  55  |      }
+  56  | 
+  57  | 
+  58  |      // NAVIGATE TO FIND TRANSACTIONS PAGE
+  59  | 
+  60  |      async gotoFindTransactionsPage() {
+> 61  |           await this.findTransactionsLink.click();
+      |                                           ^ Error: locator.click: Test timeout of 60000ms exceeded.
+  62  |      }
+  63  | 
+  64  |      async searchByAmount(amount) {
+  65  |           await this.gotoFindTransactionsPage();
+  66  |           await this.amountInput.fill(amount);
+  67  |           await this.findByAmountButton.click();
+  68  |      }
+  69  | 
+  70  | 
+  71  |      async searchByDate(date) {
+  72  | 
+  73  |           await this.gotoFindTransactionsPage();
+  74  | 
+  75  |           await this.dateInput.fill(date);
+  76  | 
+  77  |           await this.findByDateButton.click();
+  78  |      }
+  79  | 
+  80  |      async searchByDateRange(fromDate, toDate) {
+  81  |           await this.gotoFindTransactionsPage();
+  82  |           await this.fromDateInput.fill(fromDate);
+  83  |           await this.toDateInput.fill(toDate);
+  84  |           await this.findByDateRangeButton.click();
+  85  |      }
+  86  | 
+  87  | 
+  88  |      async searchByTransactionId(id) {
+  89  |           await this.gotoFindTransactionsPage();
+  90  |           await this.transactionIdInput.fill(id);
+  91  |           await this.findByIdButton.click();
+  92  |      }
+  93  | 
+  94  |      async verifyFindTransactionsPageVisible() {
+  95  |           await expect(this.pageTitle)
+  96  |                .toContainText(
+  97  |                     'Find Transactions'
+  98  |                );
+  99  |      }
+  100 | 
+  101 |      async verifyResultsVisible() {
+  102 |           await expect(this.resultTable)
+  103 |                .toBeVisible();
+  104 |      }
+  105 | 
+  106 |      // SESSION VALIDATION
+  107 |      async refreshPage() {
+  108 | 
+  109 |           await this.page.reload();
+  110 |      }
+  111 | }
+  112 | export default FindTransactionsPage;
+```

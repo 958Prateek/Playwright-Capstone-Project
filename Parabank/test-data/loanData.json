@@ -1,0 +1,36 @@
+{
+  "validLoan": {
+
+    "loanAmount": "1000",
+
+    "downPayment": "200"
+  },
+
+  "invalidLoan": {
+
+    "loanAmount": "-1000",
+
+    "downPayment": "200"
+  },
+
+  "emptyLoan": {
+
+    "loanAmount": "",
+
+    "downPayment": "200"
+  },
+
+  "invalidDownPayment": {
+
+    "loanAmount": "1000",
+
+    "downPayment": "-200"
+  },
+
+  "emptyDownPayment": {
+
+    "loanAmount": "1000",
+
+    "downPayment": ""
+  }
+}

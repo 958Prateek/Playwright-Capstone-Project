@@ -1,0 +1,21 @@
+{
+  "validTransfer": {
+    "amount": "10500"
+  },
+
+  "negativeTransfer": {
+    "amount": "-1000"
+  },
+
+  "decimalTransfer": {
+    "amount": "100.50"
+  },
+
+  "emptyTransfer": {
+    "amount": ""
+  },
+
+  "largeTransfer": {
+    "amount": "999999"
+  }
+}

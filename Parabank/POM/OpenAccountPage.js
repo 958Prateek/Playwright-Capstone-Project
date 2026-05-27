@@ -4,7 +4,7 @@ class OpenAccountPage {
      constructor(page) {
           this.page = page;
           this.openAccountLink =
-               page.locator('text=Open New Account');
+               page.locator('a[href="openaccount.htm"]');
 
           this.accountTypeDropdown =
                page.locator('#type');
@@ -41,11 +41,12 @@ class OpenAccountPage {
      }
 
      async openNewAccount(type) {
+           await this.gotoOpenAccountPage();
 
-          await this.page.goto(
-               'https://parabank.parasoft.com/parabank/openaccount.htm'
-          );
-          await this.page.waitForLoadState('domcontentloaded');
+          // await this.page.goto(
+          //      'https://parabank.parasoft.com/parabank/openaccount.htm'
+          // );
+          // await this.page.waitForLoadState('domcontentloaded');
           await expect(
                this.accountTypeDropdown
           ).toBeVisible();
@@ -54,7 +55,7 @@ class OpenAccountPage {
           await this.page.waitForTimeout(1000);
           await this.openAccountButton.click();
           await this.page.waitForLoadState('networkidle');
-          await this.page.waitForTimeout(2000);
+          // await this.page.waitForTimeout(2000);
      }
 
      // async openNewAccount(type) {
