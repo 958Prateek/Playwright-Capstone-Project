@@ -119,9 +119,8 @@ export default defineConfig({
     ['list'],
     ['allure-playwright', { resultsDir: 'allure-results' }]
   ],
-
   use: {
-    headless: false,
+    headless: process.env.CI ? true : false,
 
     slowMo: 1000,
     storageState: undefined,
