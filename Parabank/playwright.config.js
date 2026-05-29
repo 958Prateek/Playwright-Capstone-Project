@@ -102,17 +102,15 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './tests',
 
-  timeout: 60000,
-
-  
+  timeout: process.env.CI ? 120000 : 60000 ,
 
   fullyParallel: false,
 
   forbidOnly: !!process.env.CI,
 
-  retries: process.env.CI ? 2 : 0,
+  retries: process.env.CI ? 1 : 0,
 
-  workers: process.env.CI ? 1 : undefined,
+  workers: process.env.CI ? 1 : 4,
 
   reporter: [
     ['html'],
@@ -120,9 +118,9 @@ export default defineConfig({
     ['allure-playwright', { resultsDir: 'allure-results' }]
   ],
   use: {
-    headless: process.env.CI ? true : false,
+    headless: !!process.env.CI,
 
-    slowMo: 1000,
+    slowMo: process.env.CI ? 0 : 500,
     storageState: undefined,
 
     trace: 'on-first-retry',
@@ -136,15 +134,15 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    // {
-    //   name: 'firefox',
-    //   use: { ...devices['Desktop Firefox'] },
-    // },
+    {
+      name: 'firefox',
+      use: { ...devices['Desktop Firefox'] },
+    },
 
-    // {
-    //   name: 'webkit',
-    //   use: { ...devices['Desktop Safari'] },
-    // },
+    {
+      name: 'webkit',
+      use: { ...devices['Desktop Safari'] },
+    },
   ],
 });
 

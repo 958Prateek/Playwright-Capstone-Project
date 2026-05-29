@@ -3,7 +3,7 @@ import { expect } from '@playwright/test';
 class RegisterPage {
     constructor(page) {
         this.page = page;
-        this.registerLink =page.locator('text=Register');
+        this.registerLink = page.locator('text=Register');
         this.firstName = page.locator('#customer\\.firstName');
         this.lastName = page.locator('#customer\\.lastName');
         this.address = page.locator('#customer\\.address\\.street');
@@ -22,7 +22,9 @@ class RegisterPage {
     async gotoRegisterPage() {
         await this.page.goto(
             'https://parabank.parasoft.com/parabank/index.htm');
-        await this.page.waitForLoadState('domcontentloaded');
+        await this.page.waitForLoadState('networkidle');
+        // await this.page.waitForLoadState('domcontentloaded');
+        // await expect(this.firstName).toBeVisible();
         await this.registerLink.click();
     }
 
@@ -38,14 +40,14 @@ class RegisterPage {
         await this.ssn.fill(user.ssn);
         await this.username.fill(user.username);
         await this.password.fill(user.password);
-        await this.confirmPassword.fill(user.confirmpassword || user.password);
+        await this.confirmPassword.fill(user.confirmPassword || user.password);
         await this.registerButton.click();
     }
 
     async verifyRegistration(username) {
         await expect(
-            this.page.locator('body')
-            // this.page.locator('#rightPanel')
+            // this.page.locator('body')
+            this.page.locator('#rightPanel')
         ).toContainText(
             // 'Your account was created successfully'
             // 'Welcome'
