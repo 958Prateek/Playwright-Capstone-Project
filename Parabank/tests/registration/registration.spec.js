@@ -231,7 +231,13 @@ test.describe('Registration Module', () => {
           );
      });
 
-     test('TC14 - Registration Form Reset Validation', async ({ page }) => {
+     test('TC14 - Registration Page Title Validation', async ({ page }) => {
+          const register = new RegisterPage(page);
+          await register.gotoRegisterPage();
+          await expect(page.locator('.title')).toContainText('Signing up is easy!')
+     });
+
+     test('TC15 - Registration Form Reset Validation', async ({ page }) => {
           const register = new RegisterPage(page);
           await register.gotoRegisterPage();
           await register.firstName.fill('Prateek');
@@ -241,5 +247,6 @@ test.describe('Registration Module', () => {
           await expect(register.lastName ).toHaveValue('');
           console.log(' Registration Form Reset Verified');
      });
+
 
 })

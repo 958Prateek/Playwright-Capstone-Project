@@ -74,9 +74,9 @@ test.describe('Accounts Overview Module', () => {
     test('TC06 - Verify Dynamic Balance Validation', async ({ page }) => {
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
+        await expect(overview.accountBalances.first()).toBeVisible();
         const balance =
-            await overview.accountBalances.first()
-                .textContent();
+            await overview.accountBalances.first().textContent();
 
         // ASSERTION
 

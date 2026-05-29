@@ -18,6 +18,8 @@ test.describe('Find Transactions Module', () => {
           user = {
                ...registerData.validUser,
 
+               city: 'Pune',
+
                username: 'user_' + Date.now()
           };
           await register.gotoRegisterPage();

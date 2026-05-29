@@ -5,13 +5,13 @@
   },
 
   "invalidUser": {
-    "username": "wrongUser",
+    "username": "invaliduser",
     "password": "wrongPassword"
   },
 
   "invalidPasswordUser": {
     "username": "john",
-    "password": "wrongpassword"
+    "password": "wrong123"
   },
 
   "emptyUser": {

@@ -41,7 +41,7 @@ class OpenAccountPage {
      }
 
      async openNewAccount(type) {
-           await this.gotoOpenAccountPage();
+          await this.gotoOpenAccountPage();
 
           // await this.page.goto(
           //      'https://parabank.parasoft.com/parabank/openaccount.htm'
@@ -83,6 +83,10 @@ class OpenAccountPage {
 
 
      async verifyNewAccountNumberVisible() {
+          await expect(
+               this.newAccountNumber.first()
+          ).toBeVisible();
+
           await expect(
                this.newAccountNumber.first()
           ).not.toHaveText('');

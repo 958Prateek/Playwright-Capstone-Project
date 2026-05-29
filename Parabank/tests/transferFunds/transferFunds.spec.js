@@ -133,6 +133,7 @@ test.describe('Transfer Funds Module', () => {
           await transfer.gotoTransferFundsPage();
           await page.reload();
           await transfer.verifyTransferPageVisible();
+          await page.waitForTimeout(2000);
           console.log(' Page Refresh Validation Done');
      });
 
