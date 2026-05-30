@@ -30,6 +30,7 @@ class RegisterPage {
 
     async registerUser(user) {
         await this.page.waitForLoadState('domcontentloaded');
+        await expect(this.firstName).toBeVisible();
         await this.firstName.fill(user.firstName);
         await this.lastName.fill(user.lastName);
         await this.address.fill(user.address);
@@ -41,6 +42,7 @@ class RegisterPage {
         await this.username.fill(user.username);
         await this.password.fill(user.password);
         await this.confirmPassword.fill(user.confirmPassword || user.password);
+        await expect(this.registerButton).toBeVisible();
         await this.registerButton.click();
     }
 

@@ -53,6 +53,7 @@ test('TC04 - Empty Credentials', async ({ page }) => {
     await login.gotoLoginPage();
     await login.login(loginData.emptyUser.username, loginData.emptyUser.password);
     await login.verifyInvalidLogin();
+    await login.verifyEmptyCredentials();
     console.log(' Empty Credential Validation Done');
 });
 
@@ -84,7 +85,7 @@ test('TC06 - Invalid Password Login', async ({ page }) => {
         loginData.invalidPasswordUser.password
     );
     await expect(page.locator('body')).toContainText(
-        'Welcome John Smith'
+        'Error!'
     );
     console.log(
         ' Invalid Password Validation Done'

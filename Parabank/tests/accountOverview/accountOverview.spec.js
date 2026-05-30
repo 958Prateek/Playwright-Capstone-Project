@@ -2,6 +2,7 @@ import { test, expect } from '@playwright/test';
 import RegisterPage from '../../POM/RegisterPage';
 import OpenAccountPage from '../../POM/OpenAccountPage';
 import AccountOverviewPage from '../../POM/AccountOverviewPage';
+import registerData from '../../test-data/registerData.json';
 import accountOverviewData from '../../test-data/accountOverviewData.json';
 
 
@@ -15,12 +16,12 @@ test.describe('Accounts Overview Module', () => {
         const openAccount = new OpenAccountPage(page);
 
         user = {
-           ...accountOverviewData.validUser,
+           ...registerData.validUser,
            username: 'user_' + Math.random().toString(36).substring(2,10)
         };
         await register.gotoRegisterPage();
         await register.registerUser(user);
-        await register.verifyRegistration(user.username);  // ASSERTION
+        await register.verifyRegistration(user.username); 
         await openAccount.openNewAccount(accountOverviewData.savingsAccount.type);
     });
 
@@ -77,9 +78,6 @@ test.describe('Accounts Overview Module', () => {
         await expect(overview.accountBalances.first()).toBeVisible();
         const balance =
             await overview.accountBalances.first().textContent();
-
-        // ASSERTION
-
         expect(balance).not.toBeNull();
         console.log(' Dynamic Balance Validation Done');
     });

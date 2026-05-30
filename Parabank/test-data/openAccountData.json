@@ -8,7 +8,8 @@
     "zipCode": "411001",
     "phone": "912534995",
     "ssn": "123456789",
-    "password": "demo"
+    "password": "demo",
+    "confirmPassword": "demo"
   }
 }  
 

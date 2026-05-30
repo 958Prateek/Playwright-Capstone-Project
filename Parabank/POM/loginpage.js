@@ -52,8 +52,16 @@ export default class LoginPage {
     async verifyInvalidLogin() {
         await expect(
             this.page.locator('body')
-        ).not.toContainText(
+        ).toContainText(
             'The username and password could not be verified'
         );
     }
+
+    async verifyEmptyCredentials() {
+    await expect(
+        this.page.locator('body')
+    ).toContainText(
+        'Please enter a username and password.'
+    );
+}
 }

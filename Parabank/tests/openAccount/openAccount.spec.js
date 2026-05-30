@@ -1,6 +1,7 @@
 import { test, expect } from '@playwright/test';
 import RegisterPage from '../../POM/RegisterPage';
 import OpenAccountPage from '../../POM/OpenAccountPage';
+import registerData from '../../test-data/registerData.json';
 import openAccountData from '../../test-data/openAccountData.json';
 
 test.describe('Open Account Module', () => {
@@ -9,7 +10,7 @@ test.describe('Open Account Module', () => {
     test.beforeEach(async ({ page }) => {
         const register = new RegisterPage(page);
         user = {
-            ...openAccountData.validUser,
+            ...registerData.validUser,
             username:   'user' + Date.now()
         };
         await register.gotoRegisterPage();

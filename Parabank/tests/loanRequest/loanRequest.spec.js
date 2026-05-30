@@ -53,8 +53,8 @@ test.describe('Loan Request Module', () => {
 
 
      test('TC05 - Empty Down Payment', async ({ page }) => {
-          const loan =  new LoanRequestPage(page);
-          await loan.applyLoan( loanData.emptyDownPayment);
+          const loan = new LoanRequestPage(page);
+          await loan.applyLoan(loanData.emptyDownPayment);
           console.log('Empty Down Payment Validation Done');
      });
 
@@ -160,7 +160,7 @@ test.describe('Loan Request Module', () => {
 
      test('TC14 - Workflow Validation', async ({ page }) => {
           const loan = new LoanRequestPage(page);
-          await loan.applyLoan(loanData.validLoan );
+          await loan.applyLoan(loanData.validLoan);
           await loan.verifyLoanApproved();
           console.log(' Workflow Validation Done');
      });

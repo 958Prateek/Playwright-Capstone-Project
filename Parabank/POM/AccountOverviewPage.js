@@ -10,14 +10,15 @@ class AccountOverviewPage {
         this.accountNumbers = page.locator('#accountTable a');
         this.accountBalances = page.locator('#accountTable tbody tr td').nth(1);
 
-        this.availableBalances = page.locator( '#accountTable tbody tr td:nth-child(3)');
+        this.availableBalances = page.locator('#accountTable tbody tr td:nth-child(3)');
         this.accountRows = page.locator('#accountTable tbody tr');
         this.transactionLinks = page.locator('#accountTable a');
-        this.pageTitle = page.getByRole ('heading',{name: 'Accounts Overview'});
+        this.pageTitle = page.getByRole('heading', { name: 'Accounts Overview' });
         this.logoutLink = page.locator('text=Log Out');
     }
     async gotoAccountsOverview() {
         await this.accountOverviewLink.click();
+        await expect(this.accountTable).toBeVisible();
     }
 
     async verifyAccountsOverviewPage() {
@@ -61,12 +62,12 @@ class AccountOverviewPage {
     // ASSERTION
     // VERIFY MULTIPLE ACCOUNTS PRESENT
     async verifyMultipleAccounts() {
-          await expect(
-               this.page.locator('body')
-          ).toContainText(
-               'Accounts Overview'
-          );
-     }
+        await expect(
+            this.page.locator('body')
+        ).toContainText(
+            'Accounts Overview'
+        );
+    }
 
 
     // ASSERTION
