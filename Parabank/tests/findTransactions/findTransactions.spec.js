@@ -166,6 +166,6 @@ test.describe('Find Transactions Module', () => {
      // PARALLEL EXECUTION
 
      test.describe.configure({
-          mode: 'parallel'
+          mode: 'default'
      });
 });

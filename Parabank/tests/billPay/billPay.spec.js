@@ -146,8 +146,8 @@ test.describe('Bill Pay Module', () => {
           console.log('Multiple Bill Payments Successful');
      });
 
-     //     test.describe.configure({
-     //         mode: 'parallel'
-     //     });
+         test.describe.configure({
+             mode: 'parallel'
+         });
 
 });

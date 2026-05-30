@@ -5,13 +5,10 @@ import AccountOverviewPage from '../../POM/AccountOverviewPage';
 import registerData from '../../test-data/registerData.json';
 import accountOverviewData from '../../test-data/accountOverviewData.json';
 
-
 test.describe('Accounts Overview Module', () => {
 
     let user;
     test.beforeEach(async ({ page }) => {
-
-        // POM OBJECTS
         const register = new RegisterPage(page);
         const openAccount = new OpenAccountPage(page);
 
@@ -28,8 +25,6 @@ test.describe('Accounts Overview Module', () => {
     test('TC01 - Verify Accounts Overview Page', async ({ page }) => {
         const overview = new AccountOverviewPage(page); //pom object
         await overview.gotoAccountsOverview();
-
-        // ASSERTION
         await overview.verifyAccountsOverviewPage();
         console.log(' Accounts Overview Page Verified');
     });
@@ -38,7 +33,7 @@ test.describe('Accounts Overview Module', () => {
     test('TC02 - Verify Account Balance Visible', async ({ page }) => {
         const overview = new AccountOverviewPage(page);
         await overview.gotoAccountsOverview();
-        await overview.verifyBalancesVisible(); // ASSERTION
+        await overview.verifyBalancesVisible(); 
         console.log(' Account Balance Visible');
     });
 
@@ -64,7 +59,6 @@ test.describe('Accounts Overview Module', () => {
         await overview.gotoAccountsOverview();
         await overview.accountNumbers.first().click();
 
-        // PARAM ASSERTION
         await expect(page)
             .toHaveURL(/activity.htm/);
 
@@ -183,7 +177,7 @@ test.describe('Accounts Overview Module', () => {
     // PARALLEL EXECUTION
     // Executes tests in parallel if enabled
 
-    test.describe.configure({
-        mode: 'parallel'
-    });
+    // test.describe.configure({
+    //     mode: 'default'
+    // });
 });

@@ -176,7 +176,7 @@ test.describe('Loan Request Module', () => {
      // PARALLEL EXECUTION
 
      test.describe.configure({
-          mode: 'parallel'
+          mode: 'default'
      });
 
 });
