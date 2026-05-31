@@ -146,8 +146,33 @@ test.describe('Bill Pay Module', () => {
           console.log('Multiple Bill Payments Successful');
      });
 
-         test.describe.configure({
-             mode: 'parallel'
-         });
+     test('TC16 - Verify All Input Fields Visible', async ({ page }) => {
+          const billPay = new BillPayPage(page);
+
+          await billPay.gotoBillPayPage();
+          await expect(billPay.payeeName).toBeVisible();
+          await expect(billPay.address).toBeVisible();
+          await expect(billPay.city).toBeVisible();
+          await expect(billPay.state).toBeVisible();
+          await expect(billPay.zipCode).toBeVisible();
+          await expect(billPay.phone).toBeVisible();
+          await expect(billPay.account).toBeVisible();
+          await expect(billPay.verifyAccount).toBeVisible();
+          await expect(billPay.amount).toBeVisible();
+
+          console.log(' All Bill Pay Fields Visible');
+     });
+
+     test('TC17 - Verify Send Payment Button Enabled', async ({ page }) => {
+          const billPay = new BillPayPage(page);
+
+          await billPay.gotoBillPayPage();
+          await expect(billPay.sendPaymentButton).toBeEnabled();
+          console.log(' Send Payment Button Enabled');
+     });
+
+     // test.describe.configure({
+     //         mode: 'parallel'
+     //     });
 
 });

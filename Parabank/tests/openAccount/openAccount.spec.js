@@ -180,4 +180,22 @@ test.describe('Open Account Module', () => {
         console.log('Navigation Validation Done');
     });
 
+    test('TC16 - Open Account Page Heading Validation', async ({ page }) => {
+            const account = new OpenAccountPage(page);
+            await account.gotoOpenAccountPage();
+            await expect(page.getByRole('heading', {name: 'Open New Account'})
+            ).toBeVisible();
+
+            console.log('Open Account Heading Verified');
+    });
+
+    // test('TC17 - New Account Number Clickable', async ({ page }) => {
+    //         const account = new OpenAccountPage(page);
+    //         await account.openNewAccount('1');
+    //         await expect(account.newAccountNumber).toBeVisible();
+    //         await account.newAccountNumber.click();
+    //         await expect(page).toHaveURL(/activity.htm/);
+    //         console.log(' New Account Number Clickable');
+    // });
+
 });

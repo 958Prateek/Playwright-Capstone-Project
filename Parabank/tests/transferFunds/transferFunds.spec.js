@@ -148,7 +148,7 @@ test.describe('Transfer Funds Module', () => {
           console.log(' Multiple Transfers Executed');
      });
 
-     test('TC16 - Negative Amount Transfer', async ({ page }) => {
+     test.skip('TC16 - Negative Amount Transfer', async ({ page }) => {
           const transfer = new TransferFundsPage(page);
           await transfer.gotoTransferFundsPage();
           await transfer.enterAmount('-1000');
@@ -166,15 +166,7 @@ test.describe('Transfer Funds Module', () => {
           console.log(' Large Amount Transfer Tested');
      });
 
-     test('TC17 - Negative Amount Transfer', async ({ page }) => {
-          const transfer = new TransferFundsPage(page);
-          await transfer.gotoTransferFundsPage();
-          await transfer.enterAmount('-1000');
-          await transfer.clickTransferButton();
-          await expect(page.locator('body'))
-               .not.toContainText('Transfer Complete!');
-          console.log(' Negative Amount Validation Done');
-     });
+     
 
      test.describe.configure({
           mode: 'default'

@@ -162,6 +162,14 @@ test.describe('Find Transactions Module', () => {
           console.log(' UI Validation Done');
      });
 
+     test('TC16 - Date Range Fields Visibility', async ({ page }) => {
+          const find = new FindTransactionsPage(page);
+          await find.gotoFindTransactionsPage();
+          await expect(find.fromDateInput).toBeVisible();
+          await expect(find.toDateInput).toBeVisible();
+          console.log(' Date Range Fields Visible');
+     });
+
 
      // PARALLEL EXECUTION
 
