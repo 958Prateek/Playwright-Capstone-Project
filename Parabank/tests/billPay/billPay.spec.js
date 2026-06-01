@@ -3,7 +3,7 @@ import RegisterPage from '../../POM/RegisterPage';
 import OpenAccountPage from '../../POM/OpenAccountPage';
 import BillPayPage from '../../POM/BillPayPage';
 import registerData from '../../test-data/registerData.json';
-import billPayData from '../../test-data/billPayData.json';
+import billPayData from '../../test-data/BillPayData.json';
 
 test.describe('Bill Pay Module', () => {
      let user;
