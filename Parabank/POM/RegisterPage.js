@@ -21,10 +21,9 @@ class RegisterPage {
 
     async gotoRegisterPage() {
         await this.page.goto(
-            'https://parabank.parasoft.com/parabank/index.htm');
-        await this.page.waitForLoadState('networkidle');
-        // await this.page.waitForLoadState('domcontentloaded');
-        // await expect(this.firstName).toBeVisible();
+            'https://parabank.parasoft.com/parabank/index.htm',
+            { waitUntil: 'domcontentloaded' }
+        );
         await this.registerLink.click();
     }
 

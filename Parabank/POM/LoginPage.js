@@ -13,9 +13,9 @@ export default class LoginPage {
 
     async gotoLoginPage() {
         await this.page.goto(
-            'https://parabank.parasoft.com/parabank/index.htm'
+            'https://parabank.parasoft.com/parabank/index.htm',
+            { waitUntil: 'domcontentloaded' }
         );
-        await this.page.waitForTimeout(2000);
     }
     async login(username, password) {
         
@@ -26,7 +26,7 @@ export default class LoginPage {
         await this.username.fill(username);
         await this.password.fill(password);
         await Promise.all([
-            this.page.waitForNavigation(),
+            this.page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
             this.loginBtn.click()
         ]);
         // await this.loginBtn.click();
@@ -38,7 +38,6 @@ export default class LoginPage {
 
     async logout() {
         await this.logoutLink.click();
-        await this.page.waitForTimeout(3000);
     }
     async verifyLoginSuccess() {
         await expect(
