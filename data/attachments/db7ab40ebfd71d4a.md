@@ -1,0 +1,619 @@
+# Instructions
+
+- Following Playwright test failed.
+- Explain why, be concise, respect Playwright best practices.
+- Provide a snippet of code with the fix, if possible.
+
+# Test info
+
+- Name: authentication/authentication.spec.js >> TC06 - Invalid Password Login
+- Location: tests/authentication/authentication.spec.js:80:5
+
+# Error details
+
+```
+Error: expect(locator).toContainText(expected) failed
+
+Locator: locator('body')
+Timeout: 5000ms
+- Expected substring  -   1
++ Received string     + 131
+
+- The username and password could not be verified
++
++ 		
++ 			
++ 				
++ 				
++ 					
++
++
++
++
++   
++   
++   Experience the difference
++
++
++   
++
++
++
++   Solutions
++   About Us
++   Services
++   Products
++   Locations
++   Admin Page
++   
++
++   
++
++
++
++   home
++   about
++   contact
++
++
++ 				
++ 			
++ 			
++ 				
++ 					
++ 						
++ 						
++ 							
++
++
++ Welcome John Smith
++
++ Account Services
++
++
++
++
++   Open New Account
++   Accounts Overview
++   Transfer Funds
++   Bill Pay
++   Find Transactions
++   Update Contact Info
++   Request Loan
++   Log Out
++
++ 						
++ 					
++ 				
++ 				
++ 					
++
++
++
++ 	
++ 		
++ 			Accounts Overview
++ 		
++ 		
++ 			
++ 				
++ 					Account
++ 					Balance*
++ 					Available Amount
++ 				
++ 			
++ 			13344$2022.93$2022.93Total$2022.93 
++ 			
++ 				
++ 					*Balance includes deposits that may be subject to holds
++ 				
++ 			
++ 		
++ 	
++
++ 	
++ 		
++ 			Error!
++ 		
++ 		
++ 			An internal error has occurred and has been logged.
++ 		
++ 	
++
++
++
++
++ 				
++ 			
++ 		
++ 		
++
++
++
++   
++     
++       Home| 
++       About Us| 
++       Services| 
++       Products| 
++       Locations| 
++       Forum| 
++       Site Map| 
++       Contact Us
++     
++     © Parasoft. All rights reserved.
++     
++       Visit us at:
++       www.parasoft.com
++     
++   
++
++ 	
++
++
+
+Call log:
+  - Expect "toContainText" with timeout 5000ms
+  - waiting for locator('body')
+    - locator resolved to <body>…</body>
+    - unexpected value "
+		
+			
+				
+				
+					
+
+
+
+
+  
+  
+  Experience the difference
+
+
+  
+
+
+
+  Solutions
+  About Us
+  Services
+  Products
+  Locations
+  Admin Page
+  
+
+  
+
+
+
+  home
+  about
+  contact
+
+
+				
+			
+			
+				
+					
+						
+						
+							
+
+
+Welcome John Smith
+
+Account Services
+
+
+
+
+  Open New Account
+  Accounts Overview
+  Transfer Funds
+  Bill Pay
+  Find Transactions
+  Update Contact Info
+  Request Loan
+  Log Out
+
+						
+					
+				
+				
+					
+
+
+
+	
+		
+			Accounts Overview
+		
+		
+			
+				
+					Account
+					Balance*
+					Available Amount
+				
+			
+			
+			
+				
+					*Balance includes deposits that may be subject to holds
+				
+			
+		
+	
+
+	
+		
+			Error!
+		
+		
+			An internal error has occurred and has been logged.
+		
+	
+
+
+
+
+				
+			
+		
+		
+
+
+
+  
+    
+      Home| 
+      About Us| 
+      Services| 
+      Products| 
+      Locations| 
+      Forum| 
+      Site Map| 
+      Contact Us
+    
+    © Parasoft. All rights reserved.
+    
+      Visit us at:
+      www.parasoft.com
+    
+  
+
+	
+
+"
+    13 × locator resolved to <body>…</body>
+       - unexpected value "
+		
+			
+				
+				
+					
+
+
+
+
+  
+  
+  Experience the difference
+
+
+  
+
+
+
+  Solutions
+  About Us
+  Services
+  Products
+  Locations
+  Admin Page
+  
+
+  
+
+
+
+  home
+  about
+  contact
+
+
+				
+			
+			
+				
+					
+						
+						
+							
+
+
+Welcome John Smith
+
+Account Services
+
+
+
+
+  Open New Account
+  Accounts Overview
+  Transfer Funds
+  Bill Pay
+  Find Transactions
+  Update Contact Info
+  Request Loan
+  Log Out
+
+						
+					
+				
+				
+					
+
+
+
+	
+		
+			Accounts Overview
+		
+		
+			
+				
+					Account
+					Balance*
+					Available Amount
+				
+			
+			13344$2022.93$2022.93Total$2022.93 
+			
+				
+					*Balance includes deposits that may be subject to holds
+				
+			
+		
+	
+
+	
+		
+			Error!
+		
+		
+			An internal error has occurred and has been logged.
+		
+	
+
+
+
+
+				
+			
+		
+		
+
+
+
+  
+    
+      Home| 
+      About Us| 
+      Services| 
+      Products| 
+      Locations| 
+      Forum| 
+      Site Map| 
+      Contact Us
+    
+    © Parasoft. All rights reserved.
+    
+      Visit us at:
+      www.parasoft.com
+    
+  
+
+	
+
+"
+
+```
+
+```yaml
+- link:
+  - /url: admin.htm
+  - img
+- link "ParaBank":
+  - /url: index.htm
+  - img "ParaBank"
+- paragraph: Experience the difference
+- list:
+  - listitem: Solutions
+  - listitem:
+    - link "About Us":
+      - /url: about.htm
+  - listitem:
+    - link "Services":
+      - /url: services.htm
+  - listitem:
+    - link "Products":
+      - /url: http://www.parasoft.com/jsp/products.jsp
+  - listitem:
+    - link "Locations":
+      - /url: http://www.parasoft.com/jsp/pr/contacts.jsp
+  - listitem:
+    - link "Admin Page":
+      - /url: admin.htm
+- list:
+  - listitem:
+    - link "home":
+      - /url: index.htm
+  - listitem:
+    - link "about":
+      - /url: about.htm
+  - listitem:
+    - link "contact":
+      - /url: contact.htm
+- paragraph: Welcome John Smith
+- heading "Account Services" [level=2]
+- list:
+  - listitem:
+    - link "Open New Account":
+      - /url: openaccount.htm
+  - listitem:
+    - link "Accounts Overview":
+      - /url: overview.htm
+  - listitem:
+    - link "Transfer Funds":
+      - /url: transfer.htm
+  - listitem:
+    - link "Bill Pay":
+      - /url: billpay.htm
+  - listitem:
+    - link "Find Transactions":
+      - /url: findtrans.htm
+  - listitem:
+    - link "Update Contact Info":
+      - /url: updateprofile.htm
+  - listitem:
+    - link "Request Loan":
+      - /url: requestloan.htm
+  - listitem:
+    - link "Log Out":
+      - /url: logout.htm
+- heading "Accounts Overview" [level=1]
+- table:
+  - rowgroup:
+    - row "Account Balance* Available Amount":
+      - columnheader "Account"
+      - columnheader "Balance*"
+      - columnheader "Available Amount"
+  - rowgroup:
+    - row "13344 $2022.93 $2022.93":
+      - cell "13344":
+        - link "13344":
+          - /url: activity.htm?id=13344
+      - cell "$2022.93"
+      - cell "$2022.93"
+    - row "Total $2022.93":
+      - cell "Total"
+      - cell "$2022.93"
+      - cell
+  - rowgroup:
+    - row "*Balance includes deposits that may be subject to holds":
+      - cell "*Balance includes deposits that may be subject to holds"
+- list:
+  - listitem:
+    - link "Home":
+      - /url: index.htm
+    - text: "|"
+  - listitem:
+    - link "About Us":
+      - /url: about.htm
+    - text: "|"
+  - listitem:
+    - link "Services":
+      - /url: services.htm
+    - text: "|"
+  - listitem:
+    - link "Products":
+      - /url: http://www.parasoft.com/jsp/products.jsp
+    - text: "|"
+  - listitem:
+    - link "Locations":
+      - /url: http://www.parasoft.com/jsp/pr/contacts.jsp
+    - text: "|"
+  - listitem:
+    - link "Forum":
+      - /url: http://forums.parasoft.com/
+    - text: "|"
+  - listitem:
+    - link "Site Map":
+      - /url: sitemap.htm
+    - text: "|"
+  - listitem:
+    - link "Contact Us":
+      - /url: contact.htm
+- paragraph: © Parasoft. All rights reserved.
+- list:
+  - listitem: "Visit us at:"
+  - listitem:
+    - link "www.parasoft.com":
+      - /url: http://www.parasoft.com/
+```
+
+# Test source
+
+```ts
+  1  | import { expect } from '@playwright/test';
+  2  | 
+  3  | export default class LoginPage {
+  4  | 
+  5  |     constructor(page) {
+  6  |         this.page = page;
+  7  |         this.username = page.locator('input[name="username"]');
+  8  |         this.password = page.locator('input[name="password"]');
+  9  |         this.loginBtn = page.locator('input[value="Log In"]');
+  10 |         this.accountOverview = page.locator('h1.title');
+  11 |         this.logoutLink = page.locator('a[href*="logout"]');
+  12 |     }
+  13 | 
+  14 |     async gotoLoginPage() {
+  15 |         await this.page.goto(
+  16 |             'https://parabank.parasoft.com/parabank/index.htm',
+  17 |             { waitUntil: 'domcontentloaded' }
+  18 |         );
+  19 |     }
+  20 |     async login(username, password) {
+  21 |         
+  22 |         // await this.username.clear('');
+  23 |         // await this.username.fill(username);
+  24 |         // await this.password.clear('');
+  25 |         // await this.password.fill(password);
+  26 |         await this.username.fill(username);
+  27 |         await this.password.fill(password);
+  28 |         await Promise.all([
+  29 |             this.page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
+  30 |             this.loginBtn.click(),
+  31 |             this.page.waitForLoadState('domcontentloaded')
+  32 |         ]);
+  33 |         // await this.loginBtn.click();
+  34 |         // await this.page.waitForURL(
+  35 |         //     '**/overview.htm',
+  36 |         //     { timeout: 15000 }
+  37 |         // );
+  38 |     }
+  39 | 
+  40 |     async logout() {
+  41 |         await this.logoutLink.click();
+  42 |     }
+  43 |     async verifyLoginSuccess() {
+  44 |         await expect(
+  45 |             this.page.locator('body')
+  46 |         ).toContainText(
+  47 |             'Accounts Overview',
+  48 |             { timeout: 15000 }
+  49 |         );
+  50 |     }
+  51 | 
+  52 |     async verifyInvalidLogin() {
+  53 |         await expect(
+  54 |             this.page.locator('body')
+> 55 |         ).toContainText(
+     |           ^ Error: expect(locator).toContainText(expected) failed
+  56 |             'The username and password could not be verified'
+  57 |         );
+  58 |     }
+  59 | 
+  60 |     async verifyEmptyCredentials() {
+  61 |     await expect(
+  62 |         this.page.locator('body')
+  63 |     ).toContainText(
+  64 |         'Please enter a username and password.'
+  65 |     );
+  66 | }
+  67 | }
+```
