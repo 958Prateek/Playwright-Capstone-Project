@@ -30,10 +30,11 @@ class OpenAccountPage {
 
      async gotoOpenAccountPage() {
           await this.openAccountLink.click();
+          await expect(this.accountTypeDropdown)
+                 .toBeVisible({ timeout: 15000 });
      }
      async selectAccountType(type) {
-          await this.accountTypeDropdown
-               .selectOption(type);
+          await this.accountTypeDropdown.selectOption(type);
      }
 
      async clickOpenAccountButton() {
@@ -47,14 +48,12 @@ class OpenAccountPage {
           //      'https://parabank.parasoft.com/parabank/openaccount.htm'
           // );
           // await this.page.waitForLoadState('domcontentloaded');
-          await expect(
-               this.accountTypeDropdown
-          ).toBeVisible();
-          await this.accountTypeDropdown
-               .selectOption(type);
+          await expect(this.accountTypeDropdown).toBeVisible({ timeout: 10000 });
+          await this.accountTypeDropdown.selectOption(type);
+          await expect(this.openAccountButton).toBeVisible({ timeout: 10000 });
           await this.page.waitForTimeout(1000);
           await this.openAccountButton.click();
-          await this.page.waitForLoadState('networkidle');
+          await this.page.waitForLoadState('domcontentloaded');
           // await this.page.waitForTimeout(2000);
      }
 

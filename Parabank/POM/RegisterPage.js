@@ -22,43 +22,60 @@ class RegisterPage {
     async gotoRegisterPage() {
         await this.page.goto(
             'https://parabank.parasoft.com/parabank/index.htm',
-            { waitUntil: 'domcontentloaded' }
+            { waitUntil: 'domcontentloaded',
+                timeout: 60000
+             }
         );
         await this.registerLink.click();
+        await expect(this.firstName).toBeVisible();
     }
 
     async registerUser(user) {
         await this.page.waitForLoadState('domcontentloaded');
         await expect(this.firstName).toBeVisible();
+        await this.firstName.click();
         await this.firstName.fill(user.firstName);
+
+        await this.lastName.click();
         await this.lastName.fill(user.lastName);
+
+        await this.address.click();
         await this.address.fill(user.address);
+
+        await this.city.click();
         await this.city.fill(user.city);
+
+        await this.state.click();
         await this.state.fill(user.state);
+
+        await this.zipCode.click();
         await this.zipCode.fill(user.zipCode);
+
+        await this.phone.click();
         await this.phone.fill(user.phone);
+
+        await this.ssn.click();
         await this.ssn.fill(user.ssn);
+
         await this.username.fill(user.username);
         await this.password.fill(user.password);
         await this.confirmPassword.fill(user.confirmPassword || user.password);
+        await this.page.waitForTimeout(500);
         await expect(this.registerButton).toBeVisible();
         await this.registerButton.click();
     }
 
     async verifyRegistration(username) {
+        await expect(this.page.locator('#rightPanel')).toContainText(username);
         await expect(
-            // this.page.locator('body')
-            this.page.locator('#rightPanel')
+            this.page.locator('body')
         ).toContainText(
-            // 'Your account was created successfully'
-            // 'Welcome'
-            username
+            username, { timeout: 15000}
         );
-        await expect(
-            this.page.locator('#rightPanel')
-        ).toContainText(
-            username
-        );
+
+        // await expect(
+        //     this.page.locator('body')).toContainText(username,
+        //         { timeout: 15000 });
     }
 
 

@@ -166,6 +166,13 @@ test.describe('Transfer Funds Module', () => {
           console.log(' Large Amount Transfer Tested');
      });
 
+     test('TC18 - Verify Transfer Funds Page Title', async ({ page }) => {
+          const transfer = new TransferFundsPage(page);
+          await transfer.gotoTransferFundsPage();
+          await transfer.verifyTransferPageVisible();
+          console.log(' Transfer Funds Title Verified');
+          });
+
      
 
      test.describe.configure({

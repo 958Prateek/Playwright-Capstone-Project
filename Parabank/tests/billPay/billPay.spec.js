@@ -171,6 +171,21 @@ test.describe('Bill Pay Module', () => {
           console.log(' Send Payment Button Enabled');
      });
 
+     test('TC18 - Verify Bill Pay Form Fields Visibility', async ({ page }) => {
+          const billPay = new BillPayPage(page);
+
+          await billPay.gotoBillPayPage();
+
+          await expect(billPay.payeeName).toBeVisible();
+          await expect(billPay.address).toBeVisible();
+          await expect(billPay.city).toBeVisible();
+          await expect(billPay.state).toBeVisible();
+          await expect(billPay.zipCode).toBeVisible();
+          await expect(billPay.amount).toBeVisible();
+
+          console.log(' Bill Pay Form Fields Verified');
+          });
+
      // test.describe.configure({
      //         mode: 'parallel'
      //     });

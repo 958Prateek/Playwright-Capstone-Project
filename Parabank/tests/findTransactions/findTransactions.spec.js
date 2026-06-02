@@ -170,6 +170,13 @@ test.describe('Find Transactions Module', () => {
           console.log(' Date Range Fields Visible');
      });
 
+     test('TC17 - Verify Find Transactions Page Title', async ({ page }) => {
+          const find = new FindTransactionsPage(page);
+          await find.gotoFindTransactionsPage();
+          await find.verifyFindTransactionsPageVisible();
+          console.log(' Find Transactions Title Verified');
+          });
+
 
      // PARALLEL EXECUTION
 
