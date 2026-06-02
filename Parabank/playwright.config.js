@@ -98,19 +98,21 @@
 
 // @ts-check
 import { defineConfig, devices } from '@playwright/test';
+const isCI = !!process.env.CI;
 
 export default defineConfig({
   testDir: './tests',
 
-  timeout: process.env.CI ? 120000 : 60000 ,
+  // timeout: process.env.CI ? 120000 : 60000 ,
+  timeout: isCI ? 120000 : 60000,
 
   fullyParallel: false,
 
-  forbidOnly: !!process.env.CI,
+  forbidOnly: isCI,
 
-  retries: process.env.CI ? 1 : 0,
+  retries: isCI ? 1 : 0,
 
-  workers: process.env.CI ? 1 : 4,
+  workers: isCI ? 1 : 4,
 
   reporter: [
     ['html'],
@@ -118,9 +120,13 @@ export default defineConfig({
     ['allure-playwright', { resultsDir: 'allure-results' }]
   ],
   use: {
-    headless: !!process.env.CI,
+    // headless: !!process.env.CI,
 
-    slowMo: process.env.CI ? 0 : 500,
+    headless: isCI,
+
+    slowMo: isCI ? 0 : 500,
+
+    // slowMo: process.env.CI ? 0 : 500,
     storageState: undefined,
 
     trace: 'on-first-retry',
@@ -128,21 +134,43 @@ export default defineConfig({
     screenshot: 'only-on-failure',
   },
 
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
+  // projects: [
+  //   {
+  //     name: 'chromium',
+  //     use: { ...devices['Desktop Chrome'] },
+  //   },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+  //   {
+  //     name: 'firefox',
+  //     use: { ...devices['Desktop Firefox'] },
+  //   },
 
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-  ],
+  //   {
+  //     name: 'webkit',
+  //     use: { ...devices['Desktop Safari'] },
+  //   },
+  // ],
+
+  projects: isCI
+  ? [
+      {
+        name: 'chromium',
+        use: { ...devices['Desktop Chrome'] },
+      },
+      {
+        name: 'firefox',
+        use: { ...devices['Desktop Firefox'] },
+      },
+      {
+        name: 'webkit',
+        use: { ...devices['Desktop Safari'] },
+      },
+    ]
+  : [
+      {
+        name: 'chromium',
+        use: { ...devices['Desktop Chrome'] },
+      },
+    ],
 });
 

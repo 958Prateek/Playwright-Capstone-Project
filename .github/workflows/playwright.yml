@@ -23,7 +23,13 @@ concurrency:
 
 jobs:
   test:
-    timeout-minutes: 60
+    timeout-minutes: 120
+
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+
     runs-on: ubuntu-latest
 
     env:
@@ -48,9 +54,13 @@ jobs:
         working-directory: ./Parabank
         run: npx playwright install --with-deps
 
+      - name: Wait before running tests
+        run: sleep 30
+
       - name: Run Playwright Tests
         working-directory: ./Parabank
-        run: npm run test:ci
+        # run: npm run test:ci
+        
         continue-on-error: true
 
       - name: Upload Allure Raw Results

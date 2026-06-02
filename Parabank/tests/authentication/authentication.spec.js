@@ -84,6 +84,7 @@ test('TC06 - Invalid Password Login', async ({ page }) => {
         loginData.invalidPasswordUser.username,
         loginData.invalidPasswordUser.password
     );
+    await login.verifyInvalidLogin();
     await expect(page.locator('body')).toContainText(
         'Error!'
     );

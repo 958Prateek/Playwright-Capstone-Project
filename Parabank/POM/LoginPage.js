@@ -27,7 +27,8 @@ export default class LoginPage {
         await this.password.fill(password);
         await Promise.all([
             this.page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
-            this.loginBtn.click()
+            this.loginBtn.click(),
+            this.page.waitForLoadState('domcontentloaded')
         ]);
         // await this.loginBtn.click();
         // await this.page.waitForURL(
