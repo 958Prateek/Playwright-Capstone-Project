@@ -59,8 +59,8 @@ jobs:
 
       - name: Run Playwright Tests
         working-directory: ./Parabank
-        # run: npm run test:ci
-        
+        run: npm run test:ci
+
         continue-on-error: true
 
       - name: Upload Allure Raw Results
