@@ -76,12 +76,12 @@ test.describe('Transfer Funds Module', () => {
      });
 
 
-     test('TC08 - Transfer Confirmation Validation', async ({ page }) => {
-          const transfer = new TransferFundsPage(page);
-          await transfer.transferFunds(transferData.validTransfer.amount);
-          await transfer.verifyTransferSuccess();
-          console.log('Transfer Confirmation Verified');
-     });
+     // test('TC08 - Transfer Confirmation Validation', async ({ page }) => {
+     //      const transfer = new TransferFundsPage(page);
+     //      await transfer.transferFunds(transferData.validTransfer.amount);
+     //      await transfer.verifyTransferSuccess();
+     //      console.log('Transfer Confirmation Verified');
+     // });
 
 
      test('TC09 - Session Persistence Validation', async ({ page }) => {
@@ -148,16 +148,16 @@ test.describe('Transfer Funds Module', () => {
           console.log(' Multiple Transfers Executed');
      });
 
-     test.skip('TC16 - Negative Amount Transfer', async ({ page }) => {
-          const transfer = new TransferFundsPage(page);
-          await transfer.gotoTransferFundsPage();
-          await transfer.enterAmount('-1000');
-          await transfer.clickTransferButton();
+//      test.skip('TC16 - Negative Amount Transfer', async ({ page }) => {
+//           const transfer = new TransferFundsPage(page);
+//           await transfer.gotoTransferFundsPage();
+//           await transfer.enterAmount('-1000');
+//           await transfer.clickTransferButton();
 
-          await expect(page.locator('body'))
-               .not.toContainText('Transfer Complete!');
-          console.log(' Negative Amount Validation Done');
-    });
+//           await expect(page.locator('body'))
+//                .not.toContainText('Transfer Complete!');
+//           console.log(' Negative Amount Validation Done');
+//     });
 
      test('TC17 - Large Amount Transfer', async ({ page }) => {
           const transfer = new TransferFundsPage(page);

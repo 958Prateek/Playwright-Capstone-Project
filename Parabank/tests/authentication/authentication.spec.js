@@ -5,7 +5,10 @@ import loginData from '../../test-data/loginData.json';
 test.beforeEach(async ({ page }) => {
     await page.context().clearCookies();
     await page.goto(
-        'https://parabank.parasoft.com/parabank/logout.htm'
+        'https://parabank.parasoft.com/parabank/logout.htm' ,
+        {
+            waitUntil: 'domcontentloaded'
+        }
     );
 });
 

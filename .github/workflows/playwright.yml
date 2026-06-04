@@ -55,8 +55,8 @@ jobs:
         working-directory: ./Parabank
         run: npx playwright install --with-deps
 
-      - name: Wait before running tests
-        run: sleep 30
+      # - name: Wait before running tests
+      #   run: sleep 30
 
       - name: Run Playwright Tests
         working-directory: ./Parabank

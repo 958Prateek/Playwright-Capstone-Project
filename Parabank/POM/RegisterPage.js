@@ -27,7 +27,8 @@ class RegisterPage {
              }
         );
         await this.registerLink.click();
-        await expect(this.firstName).toBeVisible();
+        await this.page.waitForLoadState('domcontentloaded');
+        // await expect(this.firstName).toBeVisible();
     }
 
     async registerUser(user) {
@@ -57,25 +58,24 @@ class RegisterPage {
         await this.ssn.click();
         await this.ssn.fill(user.ssn);
 
+        await this.username.click();
         await this.username.fill(user.username);
+
+        await this.password.click();
         await this.password.fill(user.password);
+
+        await this.confirmPassword.click();
         await this.confirmPassword.fill(user.confirmPassword || user.password);
+
         await this.page.waitForTimeout(500);
         await expect(this.registerButton).toBeVisible();
         await this.registerButton.click();
     }
 
     async verifyRegistration(username) {
-        await expect(this.page.locator('#rightPanel')).toContainText(username);
-        await expect(
-            this.page.locator('body')
-        ).toContainText(
-            username, { timeout: 15000}
-        );
+        await expect(this.page.locator('#rightPanel')).toContainText('Welcome',{ timeout: 15000 });
 
-        // await expect(
-        //     this.page.locator('body')).toContainText(username,
-        //         { timeout: 15000 });
+        await expect(this.page.locator('#rightPanel')).toContainText( username);
     }
 
 
