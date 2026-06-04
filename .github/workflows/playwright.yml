@@ -27,6 +27,7 @@ jobs:
 
     strategy:
       fail-fast: false
+      max-parallel: 1
       matrix:
         browser: [chromium, firefox, webkit]
 
@@ -59,15 +60,14 @@ jobs:
 
       - name: Run Playwright Tests
         working-directory: ./Parabank
-        run: npm run test:ci
-
+        run: npm run test:ci -- --project=${{ matrix.browser }}
         continue-on-error: true
 
       - name: Upload Allure Raw Results
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: allure-results-shard-1
+          name: allure-results-shard-${{ matrix.browser }}
           path: Parabank/allure-results
           if-no-files-found: warn
           retention-days: 14

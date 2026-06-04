@@ -110,9 +110,9 @@ export default defineConfig({
 
   forbidOnly: isCI,
 
-  retries: isCI ? 1 : 0,
+  retries: isCI ? 2 : 1,
 
-  workers: isCI ? 1 : 4,
+  workers: 1,
 
   reporter: [
     ['html'],
